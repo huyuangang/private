@@ -1,0 +1,212 @@
+<!-- 图片轮播简单实现 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>效果实现之图片轮播</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			font-size: 62.5%;
+			padding-left: 50px;
+		}
+		.introduce{
+			margin: 50px 0;
+		}
+		.title{
+			font-size: 3em;
+		}
+		.complete-time {
+			font-size: 1.8em;
+			margin-top: 20px;
+		}
+		.carousel-screen{
+			width: 480px;
+			height: 250px;
+			margin: auto;
+			position: relative;
+			overflow: hidden;
+		}
+		.carousel-screen:hover > .btn{
+			display: block;
+		}
+		.scroll-item{
+			position: absolute;
+			left: 0;
+			top: 0;
+			background: #99a9bf;
+			width: 100%;
+			height: 100%;
+			display: none;
+			text-align: center;
+			font-size: 3em;
+			line-height: 250px;
+		}
+		.scroll-current,.scroll-pre,.scroll-next{
+			display: block;
+			transition: .4s ease-in-out;
+		}
+		.scroll-pre{
+			transform: translate(-100%,0);
+		}
+		.scroll-next{
+			transform: translate(100%,0);
+		}
+		.carousel-pointer{
+			position: absolute;
+			bottom: 0;
+			padding: 12px 4px;
+			background: transparent;
+			z-index: 1;
+			left: 50%;
+			transform: translate(-50%);
+		}
+		.pointer-item{
+			display: inline-block;
+		    background-color: #666;
+    		width: 20px;
+    		height: 2px;
+    		margin: 0 5px;
+		}
+		.pointer-current{
+			background: #fff;
+		}
+		.btn{
+			z-index: 1;
+			position: absolute;
+			font-size: 3em;
+			width: 50px;
+			height: 50px;
+			top: 50%;
+			transform: translate(0,-50%);
+			border-radius: 50%;
+			background: rgba(31,45,61,.2);
+			color: #fff;
+			text-align: center;
+			line-height: 50px;
+			cursor: pointer;
+			transition: .5s;
+			display: none;
+		}
+		.left-btn:hover,.right-btn:hover{
+			background: rgba(31,45,61,.6);
+		}
+		.left-btn{
+			left: 16px;
+		}
+		.right-btn{
+			right: 16px;
+		}
+		.btn-container{
+			text-align: center;
+			margin: 20px 0;
+		}
+		.btn-container button{
+			padding: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="introduce">
+		<h1 class='title'>效果实现之图片轮播</h1>
+		<p class='complete-time'>完成时间：2017/5/19</p>
+	</div>
+	<div class="carousel-screen" onmouseover="carousel.stop()" onmouseout="carousel.begin()">
+		<span class='left-btn btn'>&lt;</span>
+		<ul class="carousel-pointer"></ul>
+		<span class='right-btn btn'>&gt;</span>
+	</div>
+	<div class="btn-container">
+		<button onclick='carousel.begin()'>开始</button>
+		<button onclick='carousel.stop()'>暂停</button>
+	</div>
+	<script type="text/javascript">
+		var carousel = (function (number) {
+			var container = document.querySelector('.carousel-screen'),
+				pointer = document.querySelector('.carousel-pointer'),
+				total = number,
+				domArr = [],
+				pointerArr = [],
+				timer,
+				current = 0;
+
+			function setClassName() {
+				var	pre = (current + total - 1) % total,
+					next = (current + 1) % total,
+					i;
+				for(i = 0; i < total; i++){
+					domArr[i].className = 'scroll-item';
+					pointerArr[i].className = 'pointer-item'
+				}
+				domArr[pre].className += ' scroll-pre';
+				domArr[next].className += ' scroll-next';
+				domArr[current].className += ' scroll-current';
+				pointerArr[current].className += ' pointer-current';
+			}
+			return {
+				init: function () {
+					var dom,
+						li,
+						i;
+					for(i = 0; i < total; i++){
+						dom = document.createElement('div');
+						li = document.createElement('li');
+						dom.innerHTML = i;
+						domArr[i] = dom;
+						pointerArr[i] = li;
+						container.appendChild(dom);
+						pointer.appendChild(li);
+					}
+					setClassName();
+				},
+				begin: function () {
+					if(timer)
+						return ;
+					timer = setInterval(function(){
+						current = (current + 1) % total;
+						setClassName();
+					}, 2000);
+				},
+				stop: function () {
+					clearInterval(timer);
+					timer = null;
+				},
+				left: function () {
+					current = (current + total - 1) % total;
+					setClassName();
+				},
+				right: function () {
+					current = (current + 1) % total;
+					setClassName();
+				}
+ 			}
+		}(5));
+		(function() {
+			carousel.init();
+			carousel.begin();
+			var leftBtn = document.querySelector('.left-btn');
+			var rightBtn = document.querySelector('.right-btn');
+			function leftBtnFoo () {
+				leftBtn.removeEventListener('click', leftBtnFoo);
+				carousel.left();
+				clearTimeout(i);
+				var i = setTimeout(function () {
+					leftBtn.addEventListener('click', leftBtnFoo);
+				}, 500)   //过渡时间为500ms,所以要在过渡效果完成之后重新绑定
+			}
+			leftBtn.addEventListener('click', leftBtnFoo);
+			function rightBtnFoo () {
+				rightBtn.removeEventListener('click', rightBtnFoo);
+				carousel.right();
+				clearTimeout(i);
+				var i = setTimeout(function () {
+					rightBtn.addEventListener('click', rightBtnFoo);
+				}, 500)
+			}
+			rightBtn.addEventListener('click', rightBtnFoo);
+		}());
+	</script>
+</body>
+</html>

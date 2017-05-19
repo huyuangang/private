@@ -1,0 +1,117 @@
+<!-- 模态框简单实现 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>效果实现之模态框（弹出层）</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			font-size: 62.5%;
+			padding-left: 50px;
+		}
+		.introduce{
+			margin: 50px 0;
+		}
+		.title{
+			font-size: 3em;
+		}
+		.complete-time {
+			font-size: 1.8em;
+			margin-top: 20px;
+		}
+		.modal-background{
+			position: fixed;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background: rgba(128,128,128,.6);
+			z-index:100;
+			font-size: 1.4em;
+			display: none;
+		}
+		.modal-dialog{
+			position: relative;
+			width: 500px;
+			height: 200px;
+			margin: auto;
+			background: #fff;
+			box-shadow: 0 0 5px #333;
+			top: 50%;
+			transform: translate(0,-50%);
+		}
+		.modal-header{
+			line-height: 40px;
+			overflow: auto;
+			padding: 0 10px;
+		}
+		.modal-header h1{
+			float: left
+		}
+		.modal-header a{
+			float: right;
+			text-decoration: none;
+			color: #aaa;
+		}
+		.modal-header a:hover{
+			color: #000;
+		}
+		.modal-body{
+			position: absolute;
+			top:40px;
+			bottom: 40px;
+			left: 0;
+			right: 0;
+			padding: 10px;
+		}
+		.modal-footer{
+			position: absolute;
+			bottom: 0;
+			line-height: 40px;
+			padding-left: 10px;
+		}
+		button{
+			padding: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="introduce">
+		<h1 class='title'>效果实现之模态框（弹出层）</h1>
+		<p class='complete-time'>完成时间：2017/5/19</p>
+	</div>
+	<button id='showModalBtn'>click me to show modal</button>
+	<div id='modal' class="modal-background">
+		<div class="modal-dialog">
+			<div class="modal-header">
+				<a id='close' href="javascript:void(0)">关闭</a>
+				<h3>标题</h3>
+			</div>
+			<div class="modal-body">
+				这是模态框内容。
+			</div>
+			<div class="modal-footer">
+				注脚
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		(function () {
+			//注意：getElementById等方法document才有,dom的是querySelector
+			var btn = document.getElementById('showModalBtn');
+			var modal = document.getElementById('modal');
+			// var close = modal.getElementById('close');  错误
+			var close = modal.querySelector('#close');
+			btn.addEventListener('click', function () {
+				modal.style.display = 'block';
+			})
+			close.addEventListener('click', function () {
+				modal.style.display = 'none';
+			})
+		}())
+	</script>
+</body>
+</html>
