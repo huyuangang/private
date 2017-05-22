@@ -1,0 +1,59 @@
+<!-- 弹出框 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>弹出框</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			font-size: 62.5%;
+			padding-left: 50px;
+		}
+		.introduce{
+			margin: 50px 0;
+		}
+		.title{
+			font-size: 3em;
+		}
+		.complete-time {
+			font-size: 1.8em;
+			margin-top: 20px;
+		}
+		.pop-box{
+			position: relative;
+			width: 150px;
+			height: 100px;
+			border: 1px solid;
+			border-radius: 5px;
+		}
+		.pop-box:after{
+			content: '';
+			position: absolute;
+			border-width: 7px;
+			border-style: solid;
+			border-color: transparent transparent white transparent;
+			top: -14px;
+			left: 15px;
+		}
+		.pop-box:before{
+			content: '';
+			position: absolute;
+			border-width: 8px;
+			border-style: solid;
+			border-color: transparent transparent black transparent;
+			top: -16px;
+			left: 14px;
+		}
+	</style>
+</head>
+<body>
+	<div class="introduce">
+		<h1 class='title'>弹出框</h1>
+		<p class='complete-time'>完成时间：2017/5/19</p>
+	</div>
+	<div class="pop-box"></div>
+</body>
+</html>
