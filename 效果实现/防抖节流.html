@@ -1,0 +1,43 @@
+<!-- 防抖节流.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js防抖节流</title>
+</head>
+<body>
+	<button id="btn">节流</button>
+</body>
+
+<script>
+	function debounce(foo, time){
+		var timmer = null;
+		return function(){
+			clearTimeout(timmer);
+			timmer = setTimeout(function(){
+				foo();
+			}, time);
+
+		}
+	}
+	var btn = document.getElementById('btn');
+	btn.addEventListener('click', throttle(function(){
+		console.log('节流');
+	}, 300))
+
+	function throttle(foo, time){
+		var p = false;
+		return function(){
+			if(p)
+				return;
+			p = true;
+			clearTimeout(timmer);
+			var timmer = setTimeout(function(){
+				foo();
+				p = false;
+			}, time)
+		}
+	}
+</script>
+</html>
