@@ -171,21 +171,32 @@
 			carousel.begin();
 			var leftBtn = document.querySelector('.left-btn');
 			var rightBtn = document.querySelector('.right-btn');
+
+			var p = false;
+
 			function leftBtnFoo () {
-				leftBtn.removeEventListener('click', leftBtnFoo);
+				// leftBtn.removeEventListener('click', leftBtnFoo);
+				if(p)
+					return;
 				carousel.left();
+				p = true;
 				clearTimeout(i);
 				var i = setTimeout(function () {
-					leftBtn.addEventListener('click', leftBtnFoo);
+					// leftBtn.addEventListener('click', leftBtnFoo);
+					p = false;
 				}, 500)   //过渡时间为500ms,所以要在过渡效果完成之后重新绑定
 			}
 			leftBtn.addEventListener('click', leftBtnFoo);
 			function rightBtnFoo () {
-				rightBtn.removeEventListener('click', rightBtnFoo);
+				// rightBtn.removeEventListener('click', rightBtnFoo);
+				if(p)
+					return;
+				p = true;
 				carousel.right();
 				clearTimeout(i);
 				var i = setTimeout(function () {
-					rightBtn.addEventListener('click', rightBtnFoo);
+					p = false;
+					// rightBtn.addEventListener('click', rightBtnFoo);
 				}, 500)
 			}
 			rightBtn.addEventListener('click', rightBtnFoo);
