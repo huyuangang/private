@@ -1,0 +1,94 @@
+<!-- 瀑布流布局实现 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>瀑布流布局实现</title>
+	<link rel="stylesheet" type="text/css" href="../public/common.css">
+	<style type="text/css">
+		.container{
+			width: 1200px;
+			margin: auto;
+			position: relative;
+		}
+		.container .box{
+			position: absolute;
+			width: 280px;
+		}
+		.container .box img{
+			width: 100%;
+			display: inherit;
+		}
+	</style>
+</head>
+<body>
+	<div class="introduce">
+		<h1 class='title'>瀑布流布局实现</h1>
+		<p class='complete-time'>完成时间：2017/7/6</p>
+	</div>
+	<div class="container" id="container">
+		<div class="box"><img src="../public/images/0.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/1.jpg" alt="pid"></div>
+		<div class="box"><img src="../public/images/2.jpg" alt="pid"></div>
+		<div class="box"><img src="../public/images/3.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/4.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/5.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/6.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/7.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/8.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/9.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/10.jpeg" alt="pic"></div>
+		<div class="box"><img src="../public/images/11.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/12.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/13.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/14.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/15.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/16.jpg" alt="pic"></div>
+		<div class="box"><img src="../public/images/17.jpeg" alt="pic"></div>
+	</div>
+
+	<div class="container">
+		<div class="col1"></div>
+		<div class="col2"></div>
+		<div class="col3"></div>
+		<div class="col4"></div>
+	</div>
+</body>
+<script>
+	window.onload = function(){
+
+		waterFall();
+		function waterFall(){
+			var container = document.getElementById('container');
+			var boxDoms = container.getElementsByClassName('box');
+			var boxHeights = [];
+			//盒子宽度
+			var boxWidth = boxDoms[0].offsetWidth;
+			//计算一排能放多少个
+			var rowLen = Math.floor(container.offsetWidth / boxWidth);
+			for(var i=0,l=boxDoms.length; i<l; i++){
+				//将第一排的宽度存入数组中
+				if(i < rowLen){
+					boxHeights.push(boxDoms[i].offsetHeight + 20);
+					boxDoms[i].style.top = 0;
+					boxDoms[i].style.left = 10 + (boxWidth + 20)*i + 'px';
+				}
+				//第一排后的每张图片都排到前一排最短的后面
+				else{
+					var minIndex = 0,
+					minHeight = boxHeights[0];
+					for(var j=1; j<rowLen; j++){
+						if(minHeight > boxHeights[j]){
+							minIndex = j;
+							minHeight = boxHeights[j];
+						}
+					}
+					boxDoms[i].style.top = boxHeights[minIndex] + 'px';
+					boxDoms[i].style.left = 10 + (boxWidth + 20) * minIndex + 'px';
+					boxHeights[minIndex] += (boxDoms[i].offsetHeight + 20);
+				}
+			}
+		}
+	}
+</script>
+</html>
