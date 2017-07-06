@@ -7,7 +7,8 @@
 	<title>js防抖节流</title>
 </head>
 <body>
-	<button id="btn">节流</button>
+	<button id="btn1">防抖</button>
+	<button id="btn2">节流</button>
 </body>
 
 <script>
@@ -21,9 +22,9 @@
 
 		}
 	}
-	var btn = document.getElementById('btn');
-	btn.addEventListener('click', throttle(function(){
-		console.log('节流');
+	var btn1 = document.getElementById('btn1');
+	btn1.addEventListener('click', debounce(function(){
+		console.log('防抖');
 	}, 300))
 
 	function throttle(foo, time){
@@ -39,5 +40,10 @@
 			}, time)
 		}
 	}
+
+	var btn2 = document.getElementById('btn2');
+	btn2.addEventListener('click', throttle(function(){
+		console.log('节流');
+	}, 300))
 </script>
 </html>
