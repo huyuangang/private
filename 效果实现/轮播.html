@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>效果实现之图片轮播</title>
 	<link rel="stylesheet" type="text/css" href="../public/common.css">
 	<style type="text/css">
@@ -48,10 +49,10 @@
 		}
 		.pointer-item{
 			display: inline-block;
-		    background-color: #666;
-    		width: 20px;
-    		height: 2px;
-    		margin: 0 5px;
+			background-color: #666;
+			width: 20px;
+			height: 2px;
+			margin: 0 5px;
 		}
 		.pointer-current{
 			background: #fff;
@@ -108,17 +109,17 @@
 	<script type="text/javascript">
 		var carousel = (function (number) {
 			var container = document.querySelector('.carousel-screen'),
-				pointer = document.querySelector('.carousel-pointer'),
-				total = number,
-				domArr = [],
-				pointerArr = [],
-				timer,
-				current = 0;
+			pointer = document.querySelector('.carousel-pointer'),
+			total = number,
+			domArr = [],
+			pointerArr = [],
+			timer,
+			current = 0;
 
 			function setClassName() {
 				var	pre = (current + total - 1) % total,
-					next = (current + 1) % total,
-					i;
+				next = (current + 1) % total,
+				i;
 				for(i = 0; i < total; i++){
 					domArr[i].className = 'scroll-item';
 					pointerArr[i].className = 'pointer-item'
@@ -131,8 +132,8 @@
 			return {
 				init: function () {
 					var dom,
-						li,
-						i;
+					li,
+					i;
 					for(i = 0; i < total; i++){
 						dom = document.createElement('div');
 						li = document.createElement('li');
@@ -164,7 +165,7 @@
 					current = (current + 1) % total;
 					setClassName();
 				}
- 			}
+			}
 		}(5));
 		(function() {
 			carousel.init();
