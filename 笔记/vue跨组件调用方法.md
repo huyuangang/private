@@ -17,6 +17,7 @@
 即触发一个事件，相当于事件驱动。父组件监听子组件触发事件，再进行其他操作
 
 [https://cn.vuejs.org/v2/api/#vm-emit](https://cn.vuejs.org/v2/api/#vm-emit)
+
 [父子组件数据传递方式](https://cn.vuejs.org/v2/guide/components.html#组件组合)
 
 ### 三、$nextTick：将回调延迟到下次 DOM 更新循环之后执行。在修改数据之后立即使用它，然后等待 DOM 更新。
