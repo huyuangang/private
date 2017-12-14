@@ -15,6 +15,7 @@
 ### 二、$emit： 触发当前实例上的事件。附加参数都会传给监听器回调。
 
 即触发一个事件，相当于事件驱动。父组件监听子组件触发事件，再进行其他操作
+
 [https://cn.vuejs.org/v2/api/#vm-emit](https://cn.vuejs.org/v2/api/#vm-emit)
 [父子组件数据传递方式](https://cn.vuejs.org/v2/guide/components.html#组件组合)
 
